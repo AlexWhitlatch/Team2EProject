@@ -1,6 +1,6 @@
-<project name="DeviceUnlocker" default="dist" basedir=".">
+<project name="DeviceUnlocker" default="jar" basedir=".">
     <description>
-        simple example build file
+        A simple project build file for running and testing the project.
     </description>
     <!-- set global properties for this build -->
     <property name="src" location="ResourceLockingProject/src"/>
@@ -20,13 +20,19 @@
         <javac srcdir="${src}" destdir="${build}" classpath="${src}/../../ResourceLockingProject/src/com/externalDependencies/Device-dist.jar"/>
     </target>
 
-    <target name="dist" depends="compile"
+    <target name="jar" depends="compile"
             description="generate the distribution">
         <!-- Create the distribution directory -->
         <mkdir dir="${dist}/lib"/>
 
         <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-        <jar jarfile="${dist}/lib/DeviceUnlocker-${DSTAMP}.jar" basedir="${build}"/>
+        <jar jarfile="${dist}/lib/DeviceUnlocker-${DSTAMP}.jar" basedir="${build}">
+            <zipgroupfileset dir="${src}/../../ResourceLockingProject/src/com/externalDependencies" includes="Device-dist.jar" />
+            <manifest>
+                <attribute name="DeviceUnlocker-${DSTAMP}" value="main"/>
+                <attribute name="Main-Class" value="Magic"/>
+            </manifest>
+        </jar>
     </target>
 
     <target name="clean"
@@ -34,5 +40,9 @@
         <!-- Delete the ${build} and ${dist} directory trees -->
         <delete dir="${build}"/>
         <delete dir="${dist}"/>
+    </target>
+
+    <target name="run">
+        <java jar="${dist}/lib/DeviceUnlocker-20170914.jar" fork="true"/>
     </target>
 </project>
