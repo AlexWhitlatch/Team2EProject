@@ -32,22 +32,28 @@ public class FourBitTwoDisclosureDeviceUnlocker extends DeviceUnlocker {
         	switch (randomCase) {
 	        	case 0:
 	        		key.peek("??--");
-	                key.poke("TT--");
+	                	key.poke("TT--");
+				break;
 	        	case 1:
 	        		key.peek("?-?-");
-	                key.poke("T-T-");
+	                	key.poke("T-T-");
+				break;
 	        	case 2:
 	        		key.peek("?--?");
-	                key.poke("T--T");
+	                	key.poke("T--T");
+				break;
 	        	case 3:
 	        		key.peek("-??-");
-	                key.poke("-TT-");
+	                	key.poke("-TT-");
+				break;
 	        	case 4:
 	        		key.peek("-?-?");
-	                key.poke("-T-T");
+	                	key.poke("-T-T");
+				break;
 	        	case 5:
 	        		key.peek("--??");
-	                key.poke("--TT");
+	                	key.poke("--TT");
+				break;
         	}
 
             if (key.spin() == true) {
