@@ -49,8 +49,6 @@ public class FourBitTwoDisclosureDeviceUnlocker extends DeviceUnlocker {
 	        		key.peek("--??");
 	                key.poke("--TT");
         	}
-            key.peek("??--");
-            key.poke("TT--");
 
             if (key.spin() == true) {
                 return true;
