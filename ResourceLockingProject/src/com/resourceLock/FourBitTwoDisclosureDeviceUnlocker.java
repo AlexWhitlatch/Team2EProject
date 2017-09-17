@@ -6,7 +6,7 @@
  * @author Stephen Bapple
  */
 public class FourBitTwoDisclosureDeviceUnlocker extends DeviceUnlocker {
-    public static final int LIMIT = 4; // TODO: Change to time.
+    private static final int LIMIT = 10;
 
     /** Suppresses default constructor, ensuring non-instantiability. */
     private FourBitTwoDisclosureDeviceUnlocker() {}
