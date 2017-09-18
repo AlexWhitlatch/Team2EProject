@@ -26,35 +26,47 @@ public class FourBitTwoDisclosureDeviceUnlocker extends DeviceUnlocker {
      * @return true if the resource is successfully unlocked (all bits are now identical); false otherwise
      */
     public static boolean unlock(Device dev) {
-        /* Check if device is already unlocked. */
-        if (dev.spin() == true) {
-            return true;
-        }
+        //throw this in a try as to not throw unhandled exceptions
+        try{
+            //we can't unlock a device that doesnt exist.
+            if(null == dev){
+                return false;
+            }
+            /* Check if device is already unlocked. */
+            if (dev.spin() == true) {
+                return true;
+            }
 
         /* move loop invariant outside of the loop in order validate device state */
-        int i = 0;
+            int i = 0;
 
         /* at this point the loop invariant should be 0 still and the device should be locked */
-        assert(i == 0 && !dev.spin());
+            assert(i == 0 && !dev.spin());
 
         /* Solution:
         Peek/poke the leftmost two bits to True every time. */
-        while(i++ < LIMIT) {
-            dev.peek("??--");
-            dev.poke("TT--");
-            if (dev.spin() == true) {
+            while(i++ < LIMIT) {
+                dev.peek("??--");
+                dev.poke("TT--");
+                if (dev.spin() == true) {
                 /* the loop invariant should be less than the limit if you're in the loop still and here the device
                 should be unlocked */
-                assert(i<LIMIT && dev.spin());
-                return true;
-            }
+                    assert(i<LIMIT && dev.spin());
+                    return true;
+                }
             /* the loop invariant should be less than the limit if you're in the loop still and here the device
                 should be locked */
-            assert(i<LIMIT && !dev.spin());
-        }
+                assert(i<LIMIT && !dev.spin());
+            }
         /* the loop invariant should be equal to the limit if we are returning false for unlock */
-        assert(i==LIMIT && !dev.spin());
-        return false;
+            assert(i==LIMIT && !dev.spin());
+            return false;
+
+        }catch (Exception exception){
+            log(exception.getMessage());
+            return false;
+
+        }
     }
 }
 
