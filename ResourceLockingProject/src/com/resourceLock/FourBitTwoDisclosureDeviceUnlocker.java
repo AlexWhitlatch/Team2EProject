@@ -9,7 +9,9 @@
  * @author Taylor Woehrle
  *
  *
- * @see <a href="http://jodypaul.com/cs/sweprin/deviceProj/projectDescription.html">Project Description</a>
+ * @see <a href="http://jodypaul.com/cs/sweprin/deviceProj/projectDescription.html">
+ *     Project Description
+ *     </a>
  *
  */
 public class FourBitTwoDisclosureDeviceUnlocker extends DeviceUnlocker {
@@ -21,9 +23,12 @@ public class FourBitTwoDisclosureDeviceUnlocker extends DeviceUnlocker {
 
     /**
      * Unlocks a resource controlled by a 4-bit/2-disclosure device.
-     * Behavior is unspecified if parameter is not a reference to a valid 4-bit/2-disclosure device.
-     * @param dev the device controlling the resource to unlock; must be a 4-bit device with 2 peek/poke bits.
-     * @return true if the resource is successfully unlocked (all bits are now identical); false otherwise
+     * Behavior is unspecified if parameter is not a reference
+     * to a valid 4-bit/2-disclosure device.
+     * @param dev the device controlling the resource to unlock;
+     *           must be a 4-bit device with 2 peek/poke bits.
+     * @return true if the resource is successfully unlocked
+     * (all bits are now identical); false otherwise
      */
     public static boolean unlock(Device dev) {
         //throw this in a try as to not throw unhandled exceptions
@@ -37,10 +42,12 @@ public class FourBitTwoDisclosureDeviceUnlocker extends DeviceUnlocker {
                 return true;
             }
 
-        /* move loop invariant outside of the loop in order validate device state */
+        /* move loop invariant outside of the loop
+         in order validate device state */
             int i = 0;
 
-        /* at this point the loop invariant should be 0 still and the device should be locked */
+        /* at this point the loop invariant should be
+        0 still and the device should be locked */
             assert(i == 0 && !dev.spin());
 
         /* Solution:
@@ -49,16 +56,20 @@ public class FourBitTwoDisclosureDeviceUnlocker extends DeviceUnlocker {
                 dev.peek("??--");
                 dev.poke("TT--");
                 if (dev.spin() == true) {
-                /* the loop invariant should be less than the limit if you're in the loop still and here the device
+                /* the loop invariant should be less
+                than the limit if you're in the loop
+                still and here the device
                 should be unlocked */
                     assert(i<LIMIT && dev.spin());
                     return true;
                 }
-            /* the loop invariant should be less than the limit if you're in the loop still and here the device
+            /* the loop invariant should be less than the limit
+             if you're in the loop still and here the device
                 should be locked */
                 assert(i<LIMIT && !dev.spin());
             }
-        /* the loop invariant should be equal to the limit if we are returning false for unlock */
+        /* the loop invariant should be equal to the limit if
+        we are returning false for unlock */
             assert(i==LIMIT && !dev.spin());
             return false;
 
